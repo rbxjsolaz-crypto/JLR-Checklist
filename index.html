@@ -343,40 +343,34 @@
       `;
       panel.appendChild(section);
 
-      // Fill tbody
-      setTimeout(() => {
-        const tbody = document.getElementById(`tbody-${line.key}`);
-        if (!tbody) return;
-        ITEMS.forEach((item, idx) => {
-          const fbKey = `${line.key}__${item.id}`;
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td style="color:#bbb;font-size:11px;font-weight:600">${idx+1}</td>
-            <td class="item-desc-cell">
-              ${item.desc}
-              <div class="item-hint">${item.hint}</div>
-            </td>
-            <td>
-              <select class="status-sel" id="sel-${fbKey}">
-                <option value="pending">— Pending</option>
-                <option value="ok">✓ OK</option>
-                <option value="nok">✗ NOK</option>
-                <option value="review">↺ In review</option>
-                <option value="na">— N/A</option>
-              </select>
-            </td>
-            <td>
-              <input class="cmt-inp" id="cmt-${fbKey}" placeholder="Comment..." />
-            </td>
-          `;
-          tbody.appendChild(tr);
-
-          document.getElementById(`sel-${fbKey}`).addEventListener("change", () => writeItem(line.key, item.id));
-          document.getElementById(`cmt-${fbKey}`).addEventListener("change",  () => writeItem(line.key, item.id));
-        });
-        // Paint any Firebase data already loaded
-        applyDataToDOM();
-      }, 0);
+      // Fill tbody synchronously so Firebase listener always finds elements in DOM
+      const tbody = section.querySelector(`#tbody-${line.key}`);
+      ITEMS.forEach((item, idx) => {
+        const fbKey = `${line.key}__${item.id}`;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="color:#bbb;font-size:11px;font-weight:600">${idx+1}</td>
+          <td class="item-desc-cell">
+            ${item.desc}
+            <div class="item-hint">${item.hint}</div>
+          </td>
+          <td>
+            <select class="status-sel" id="sel-${fbKey}">
+              <option value="pending">— Pending</option>
+              <option value="ok">✓ OK</option>
+              <option value="nok">✗ NOK</option>
+              <option value="review">↺ In review</option>
+              <option value="na">— N/A</option>
+            </select>
+          </td>
+          <td>
+            <input class="cmt-inp" id="cmt-${fbKey}" placeholder="Comment..." />
+          </td>
+        `;
+        tbody.appendChild(tr);
+        document.getElementById(`sel-${fbKey}`).addEventListener("change", () => writeItem(line.key, item.id));
+        document.getElementById(`cmt-${fbKey}`).addEventListener("change",  () => writeItem(line.key, item.id));
+      });
     });
 
     zonePanelsEl.appendChild(panel);
