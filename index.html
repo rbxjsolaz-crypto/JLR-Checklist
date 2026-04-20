@@ -342,9 +342,13 @@
         </div>
       `;
       panel.appendChild(section);
+    });
 
-      // Fill tbody synchronously so Firebase listener always finds elements in DOM
-      const tbody = section.querySelector(`#tbody-${line.key}`);
+    // Append panel to DOM first so getElementById works below
+    zonePanelsEl.appendChild(panel);
+
+    zone.lines.forEach((line) => {
+      const tbody = document.getElementById(`tbody-${line.key}`);
       ITEMS.forEach((item, idx) => {
         const fbKey = `${line.key}__${item.id}`;
         const tr = document.createElement("tr");
@@ -372,8 +376,6 @@
         document.getElementById(`cmt-${fbKey}`).addEventListener("change",  () => writeItem(line.key, item.id));
       });
     });
-
-    zonePanelsEl.appendChild(panel);
   });
 
   // ─── TOGGLE LINE ──────────────────────────────────────────────────
