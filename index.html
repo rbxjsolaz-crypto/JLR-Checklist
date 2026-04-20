@@ -6,26 +6,8 @@
 <title>JLR – Zone Checklist</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f0f2f5;
-    min-height: 100vh;
-    padding: 1.5rem 1rem 3rem;
-    color: #1a1a1a;
-  }
-
-  .card {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 16px;
-    border: 1px solid #e0dfd8;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  }
-
-  /* HEADER */
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; min-height: 100vh; padding: 1.5rem 1rem 3rem; color: #1a1a1a; }
+  .card { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; border: 1px solid #e0dfd8; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
   .header { padding: 1.25rem 1.5rem 1rem; border-bottom: 1px solid #e0dfd8; }
   .header-tags { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
   .tag { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.02em; }
@@ -33,136 +15,59 @@
   .tag-proj { background: #efefef; color: #555; }
   .header-title { font-size: 16px; font-weight: 600; color: #111; }
   .header-sub   { font-size: 12px; color: #888; margin-top: 3px; }
-
-  /* NAME BAR */
   #name-bar { padding: 0.7rem 1.5rem; border-bottom: 1px solid #e0dfd8; display: flex; align-items: center; gap: 10px; }
   #name-bar label { font-size: 12px; color: #666; white-space: nowrap; }
-  #name-input {
-    font-size: 12px; padding: 5px 10px; border-radius: 8px;
-    border: 1px solid #ddd; background: #fafaf8; color: #222;
-    outline: none; flex: 1; max-width: 240px;
-  }
+  #name-input { font-size: 12px; padding: 5px 10px; border-radius: 8px; border: 1px solid #ddd; background: #fafaf8; color: #222; outline: none; flex: 1; max-width: 240px; }
   #name-input:focus { border-color: #888; }
-
-  /* ONLINE */
   .online-bar { padding: 0.4rem 1.5rem; font-size: 11px; color: #888; border-bottom: 1px solid #f0efea; display: flex; align-items: center; gap: 6px; }
   .online-dot { width: 7px; height: 7px; border-radius: 50%; background: #1D9E75; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-  /* ZONE TABS */
-  .zone-tabs {
-    display: flex; overflow-x: auto; border-bottom: 2px solid #e0dfd8;
-    scrollbar-width: none; background: #f7f7f4;
-  }
+  .zone-tabs { display: flex; overflow-x: auto; border-bottom: 2px solid #e0dfd8; scrollbar-width: none; background: #f7f7f4; }
   .zone-tabs::-webkit-scrollbar { display: none; }
-  .zone-tab {
-    flex-shrink: 0; padding: 0.7rem 1.4rem;
-    font-size: 13px; font-weight: 600; color: #999;
-    cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px;
-    transition: color 0.15s, border-color 0.15s;
-    white-space: nowrap; display: flex; align-items: center; gap: 7px;
-    user-select: none;
-  }
+  .zone-tab { flex-shrink: 0; padding: 0.7rem 1.4rem; font-size: 13px; font-weight: 600; color: #999; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color 0.15s, border-color 0.15s; white-space: nowrap; display: flex; align-items: center; gap: 7px; user-select: none; }
   .zone-tab:hover { color: #444; }
   .zone-tab.active { color: #1a4fa0; border-bottom-color: #1a4fa0; }
-  .zone-pill {
-    font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 20px;
-    background: #e8e8e2; color: #666; min-width: 20px; text-align: center;
-  }
+  .zone-pill { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 20px; background: #e8e8e2; color: #666; min-width: 20px; text-align: center; }
   .zone-tab.active .zone-pill { background: #dde8fb; color: #1a4fa0; }
-
-  /* PROGRESS */
   .progress-wrap { height: 4px; background: #f0efea; }
   .progress-fill { height: 4px; background: #1a4fa0; transition: width 0.35s ease; width: 0%; }
-
-  /* SUMMARY */
   .summary-bar { display: flex; gap: 1rem; padding: 0.65rem 1.5rem; border-bottom: 1px solid #f0efea; flex-wrap: wrap; }
   .sum-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #666; }
   .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-  .dot-ok      { background: #1D9E75; }
-  .dot-nok     { background: #D85A30; }
-  .dot-review  { background: #BA7517; }
-  .dot-na      { background: #9b8fd4; }
-  .dot-pending { background: #ccc; }
-
-  /* ZONE PANELS */
-  .zone-panel { display: none; }
-  .zone-panel.active { display: block; }
-
-  /* LINE SECTIONS */
+  .dot-ok { background: #1D9E75; } .dot-nok { background: #D85A30; } .dot-review { background: #BA7517; } .dot-na { background: #9b8fd4; } .dot-pending { background: #ccc; }
+  .zone-panel { display: none; } .zone-panel.active { display: block; }
   .line-section { border-bottom: 1px solid #e8e8e2; }
-  .line-header {
-    padding: 0.7rem 1.5rem;
-    background: #f7f7f4;
-    display: flex; align-items: center; justify-content: space-between;
-    cursor: pointer; user-select: none;
-    border-bottom: 1px solid #e8e8e2;
-  }
+  .line-header { padding: 0.7rem 1.5rem; background: #f7f7f4; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; border-bottom: 1px solid #e8e8e2; }
   .line-header:hover { background: #f0f0ec; }
   .line-title { font-size: 13px; font-weight: 600; color: #333; display: flex; align-items: center; gap: 8px; }
   .line-prog { font-size: 11px; color: #aaa; }
   .line-chevron { font-size: 12px; color: #aaa; transition: transform 0.2s; }
   .line-section.open .line-chevron { transform: rotate(90deg); }
-  .line-body { display: none; }
-  .line-section.open .line-body { display: block; }
-
-  /* ITEMS TABLE */
+  .line-body { display: none; } .line-section.open .line-body { display: block; }
   .items-table { width: 100%; border-collapse: collapse; }
   .items-table thead tr { background: #fafaf8; }
-  .items-table th {
-    font-size: 10px; font-weight: 700; color: #aaa;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 0.5rem 0.75rem; text-align: left;
-    border-bottom: 1px solid #f0efea;
-  }
-  .items-table td {
-    padding: 0.6rem 0.75rem;
-    border-bottom: 1px solid #f5f5f2;
-    vertical-align: middle;
-    font-size: 13px;
-  }
+  .items-table th { font-size: 10px; font-weight: 700; color: #aaa; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid #f0efea; }
+  .items-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f5f5f2; vertical-align: middle; font-size: 13px; }
   .items-table tr:last-child td { border-bottom: none; }
   .items-table tr:hover td { background: #fafaf8; }
-
   .item-desc-cell { color: #222; line-height: 1.4; max-width: 280px; }
   .item-hint { font-size: 11px; color: #aaa; margin-top: 2px; }
-
-  select.status-sel {
-    font-size: 12px; padding: 4px 8px; border-radius: 8px;
-    border: 1px solid #ddd; background: #fafaf8; color: #222;
-    outline: none; cursor: pointer; transition: border-color 0.2s;
-    width: 120px;
-  }
-  select.status-sel:focus { border-color: #888; }
+  select.status-sel { font-size: 12px; padding: 4px 8px; border-radius: 8px; border: 1px solid #ddd; background: #fafaf8; color: #222; outline: none; cursor: pointer; transition: border-color 0.2s; width: 120px; }
   select.status-sel.ok     { border-color: #1D9E75; color: #085041; background: #E1F5EE; }
   select.status-sel.nok    { border-color: #D85A30; color: #712B13; background: #FAECE7; }
   select.status-sel.review { border-color: #BA7517; color: #633806; background: #FAEEDA; }
   select.status-sel.na     { border-color: #7F77DD; color: #3C3489; background: #EEEDFE; }
-
-  input.cmt-inp {
-    font-size: 12px; padding: 4px 9px; border-radius: 8px;
-    border: 1px solid #ddd; background: #fafaf8; color: #222;
-    outline: none; width: 100%; min-width: 120px;
-    transition: border-color 0.2s;
-  }
+  input.cmt-inp { font-size: 12px; padding: 4px 9px; border-radius: 8px; border: 1px solid #ddd; background: #fafaf8; color: #222; outline: none; width: 100%; min-width: 120px; }
   input.cmt-inp:focus { border-color: #888; }
   input.cmt-inp::placeholder { color: #ccc; }
-
-  /* FOOTER */
-  .footer {
-    padding: 0.9rem 1.5rem; border-top: 1px solid #e0dfd8;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 8px; background: #fafaf8;
-  }
+  .footer { padding: 0.9rem 1.5rem; border-top: 1px solid #e0dfd8; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; background: #fafaf8; }
   .footer-ref { font-size: 11px; color: #aaa; }
-  .footer-ref a { color: #1a4fa0; text-decoration: none; }
   .saved-indicator { font-size: 11px; color: #1D9E75; opacity: 0; transition: opacity 0.4s; }
   .saved-indicator.show { opacity: 1; }
 </style>
 </head>
 <body>
 <div class="card">
-
   <div class="header">
     <div class="header-tags">
       <span class="tag tag-ref">JLR</span>
@@ -171,23 +76,16 @@
     <div class="header-title">Zone Commissioning Checklist</div>
     <div class="header-sub" id="global-sub">Loading...</div>
   </div>
-
   <div id="name-bar">
     <label for="name-input">Your name:</label>
     <input type="text" id="name-input" placeholder="Enter your name..." maxlength="40" />
   </div>
-
   <div class="online-bar">
     <span class="online-dot"></span>
     <span id="online-text">Connecting...</span>
   </div>
-
   <div class="zone-tabs" id="zone-tabs"></div>
-
-  <div class="progress-wrap">
-    <div class="progress-fill" id="progress-bar"></div>
-  </div>
-
+  <div class="progress-wrap"><div class="progress-fill" id="progress-bar"></div></div>
   <div class="summary-bar">
     <div class="sum-item"><span class="dot dot-ok"></span><span id="cnt-ok">0 OK</span></div>
     <div class="sum-item"><span class="dot dot-nok"></span><span id="cnt-nok">0 NOK</span></div>
@@ -195,14 +93,11 @@
     <div class="sum-item"><span class="dot dot-na"></span><span id="cnt-na">0 N/A</span></div>
     <div class="sum-item"><span class="dot dot-pending"></span><span id="cnt-pending">– Pending</span></div>
   </div>
-
   <div id="zone-panels"></div>
-
   <div class="footer">
     <div class="footer-ref">JLR – Zone Commissioning Checklist</div>
     <span class="saved-indicator" id="saved-indicator">✓ Saved</span>
   </div>
-
 </div>
 
 <script type="module">
@@ -223,179 +118,153 @@
   const db  = getDatabase(app);
   const FB_NODE = "checklist";
 
-  // ─── ITEMS ────────────────────────────────────────────────────────
-  // desc: texto visible. hint: descripción breve no editable.
   const ITEMS = [
-    { id: "ct-hmi",          desc: "CT HMI",                        hint: "Cycle time HMI verification." },
-    { id: "plc-clean",       desc: "PLC Clean checks",              hint: "Verify PLC program is clean and free of debug code." },
-    { id: "dry-run",         desc: "8h dry run",                    hint: "Run the line for 8 hours without production parts." },
-    { id: "powerdown",       desc: "Powerdown",                     hint: "Validate correct powerdown sequence and recovery." },
-    { id: "clamps-off",      desc: "Clamps off",                    hint: "Check clamps open correctly when E-stop is triggered." },
-    { id: "manual-clamps",   desc: "Manual Clamps Logic Update",    hint: "Update and verify manual clamp logic in PLC." },
-    { id: "centerline",      desc: "Centerline reset logic",        hint: "Validate centerline reset procedure and logic." },
-    { id: "stacklights",     desc: "Stacklights logic update",      hint: "Verify stacklight logic matches updated specification." },
-    { id: "optical",         desc: "Optical sensors Interlock Update", hint: "Confirm optical sensor interlocks are updated and active." },
+    { id: "ct_hmi",        desc: "CT HMI",                           hint: "Cycle time HMI verification." },
+    { id: "plc_clean",     desc: "PLC Clean checks",                 hint: "Verify PLC program is clean and free of debug code." },
+    { id: "dry_run",       desc: "8h dry run",                       hint: "Run the line for 8 hours without production parts." },
+    { id: "powerdown",     desc: "Powerdown",                        hint: "Validate correct powerdown sequence and recovery." },
+    { id: "clamps_off",    desc: "Clamps off",                       hint: "Check clamps open correctly when E-stop is triggered." },
+    { id: "manual_clamps", desc: "Manual Clamps Logic Update",       hint: "Update and verify manual clamp logic in PLC." },
+    { id: "centerline",    desc: "Centerline reset logic",           hint: "Validate centerline reset procedure and logic." },
+    { id: "stacklights",   desc: "Stacklights logic update",         hint: "Verify stacklight logic matches updated specification." },
+    { id: "optical",       desc: "Optical sensors Interlock Update", hint: "Confirm optical sensor interlocks are updated and active." },
   ];
 
-  // ─── ZONES & LINES ────────────────────────────────────────────────
-  // Para añadir líneas o zonas: añade al final con ids únicos.
+  // Keys use underscores only — no dots, no dashes — safe for Firebase paths and DOM ids
   const ZONES = [
-    {
-      key: "Z6.1", label: "Z6.1",
-      lines: [
-        { key: "Z6.1-RH-PLC1", label: "RH PLC1" },
-        { key: "Z6.1-RH-PLC2", label: "RH PLC2" },
-        { key: "Z6.1-RH-PLC3", label: "RH PLC3" },
-        { key: "Z6.1-LH-PLC1", label: "LH PLC1" },
-        { key: "Z6.1-LH-PLC2", label: "LH PLC2" },
-        { key: "Z6.1-LH-PLC3", label: "LH PLC3" },
-      ]
-    },
-    {
-      key: "Z6.2", label: "Z6.2",
-      lines: [
-        { key: "Z6.2-300-PLC1", label: "300 PLC1" },
-        { key: "Z6.2-300-PLC2", label: "300 PLC2" },
-        { key: "Z6.2-500-PLC1", label: "500 PLC1" },
-        { key: "Z6.2-500-PLC2", label: "500 PLC2" },
-        { key: "Z6.2-600-PLC1", label: "600 PLC1" },
-        { key: "Z6.2-600-PLC2", label: "600 PLC2" },
-      ]
-    },
-    {
-      key: "Z6.3", label: "Z6.3",
-      lines: [
-        { key: "Z6.3-300", label: "300" },
-        { key: "Z6.3-500", label: "500" },
-      ]
-    },
-    {
-      key: "Z6.4", label: "Z6.4",
-      lines: [
-        { key: "Z6.4-4.1-PLC1", label: "4.1 PLC1" },
-        { key: "Z6.4-4.1-PLC2", label: "4.1 PLC2" },
-        { key: "Z6.4-4.1-PLC3", label: "4.1 PLC3" },
-        { key: "Z6.4-4.1-PLC4", label: "4.1 PLC4" },
-        { key: "Z6.4-4.2-PLC1", label: "4.2 PLC1" },
-        { key: "Z6.4-4.2-PLC2", label: "4.2 PLC2" },
-        { key: "Z6.4-4.4-PLC1", label: "4.4 PLC1" },
-        { key: "Z6.4-4.5-PLC1", label: "4.5 PLC1" },
-        { key: "Z6.4-4.5-PLC2", label: "4.5 PLC2" },
-        { key: "Z6.4-4.5-PLC3", label: "4.5 PLC3" },
-      ]
-    },
-    {
-      key: "Z6.5", label: "Z6.5",
-      lines: [
-        { key: "Z6.5-PLC1", label: "PLC1" },
-      ]
-    },
+    { key: "Z6_1", label: "Z6.1", lines: [
+      { key: "Z6_1_RH_PLC1", label: "RH PLC1" },
+      { key: "Z6_1_RH_PLC2", label: "RH PLC2" },
+      { key: "Z6_1_RH_PLC3", label: "RH PLC3" },
+      { key: "Z6_1_LH_PLC1", label: "LH PLC1" },
+      { key: "Z6_1_LH_PLC2", label: "LH PLC2" },
+      { key: "Z6_1_LH_PLC3", label: "LH PLC3" },
+    ]},
+    { key: "Z6_2", label: "Z6.2", lines: [
+      { key: "Z6_2_300_PLC1", label: "300 PLC1" },
+      { key: "Z6_2_300_PLC2", label: "300 PLC2" },
+      { key: "Z6_2_500_PLC1", label: "500 PLC1" },
+      { key: "Z6_2_500_PLC2", label: "500 PLC2" },
+      { key: "Z6_2_600_PLC1", label: "600 PLC1" },
+      { key: "Z6_2_600_PLC2", label: "600 PLC2" },
+    ]},
+    { key: "Z6_3", label: "Z6.3", lines: [
+      { key: "Z6_3_300", label: "300" },
+      { key: "Z6_3_500", label: "500" },
+    ]},
+    { key: "Z6_4", label: "Z6.4", lines: [
+      { key: "Z6_4_41_PLC1", label: "4.1 PLC1" },
+      { key: "Z6_4_41_PLC2", label: "4.1 PLC2" },
+      { key: "Z6_4_41_PLC3", label: "4.1 PLC3" },
+      { key: "Z6_4_41_PLC4", label: "4.1 PLC4" },
+      { key: "Z6_4_42_PLC1", label: "4.2 PLC1" },
+      { key: "Z6_4_42_PLC2", label: "4.2 PLC2" },
+      { key: "Z6_4_44_PLC1", label: "4.4 PLC1" },
+      { key: "Z6_4_45_PLC1", label: "4.5 PLC1" },
+      { key: "Z6_4_45_PLC2", label: "4.5 PLC2" },
+      { key: "Z6_4_45_PLC3", label: "4.5 PLC3" },
+    ]},
+    { key: "Z6_5", label: "Z6.5", lines: [
+      { key: "Z6_5_PLC1", label: "PLC1" },
+    ]},
   ];
 
-  // ─── STATE ────────────────────────────────────────────────────────
   let fbData = {};
   let activeZone = ZONES[0].key;
 
-  // ─── DOM BUILD ────────────────────────────────────────────────────
-  const zoneTabsEl  = document.getElementById("zone-tabs");
+  // ─── BUILD DOM ────────────────────────────────────────────────────
+  const zoneTabsEl   = document.getElementById("zone-tabs");
   const zonePanelsEl = document.getElementById("zone-panels");
 
   ZONES.forEach(zone => {
-    // Zone tab
+    // Tab
     const tab = document.createElement("div");
     tab.className = "zone-tab" + (zone.key === activeZone ? " active" : "");
     tab.dataset.key = zone.key;
-    tab.innerHTML = `${zone.label} <span class="zone-pill" id="zpill-${zone.key}">0/0</span>`;
+    tab.innerHTML = `${zone.label} <span class="zone-pill" id="zpill_${zone.key}">0/0</span>`;
     tab.addEventListener("click", () => switchZone(zone.key));
     zoneTabsEl.appendChild(tab);
 
-    // Zone panel
+    // Panel
     const panel = document.createElement("div");
     panel.className = "zone-panel" + (zone.key === activeZone ? " active" : "");
-    panel.id = "zpanel-" + zone.key;
+    panel.id = "zpanel_" + zone.key;
+    zonePanelsEl.appendChild(panel);
 
+    // Lines
     zone.lines.forEach((line, li) => {
       const section = document.createElement("div");
       section.className = "line-section" + (li === 0 ? " open" : "");
-      section.id = `section-${line.key}`;
-
-      section.innerHTML = `
-        <div class="line-header" onclick="toggleLine('${line.key}')">
-          <div class="line-title">
-            <span class="line-chevron">▶</span>
-            ${line.label}
-          </div>
-          <span class="line-prog" id="lprog-${line.key}">0/${ITEMS.length}</span>
-        </div>
-        <div class="line-body">
-          <table class="items-table">
-            <thead>
-              <tr>
-                <th style="width:32px">#</th>
-                <th>Item</th>
-                <th style="width:130px">Status</th>
-                <th>Comment</th>
-              </tr>
-            </thead>
-            <tbody id="tbody-${line.key}"></tbody>
-          </table>
-        </div>
-      `;
+      section.id = "section_" + line.key;
       panel.appendChild(section);
-    });
 
-    // Append panel to DOM first so getElementById works below
-    zonePanelsEl.appendChild(panel);
+      const header = document.createElement("div");
+      header.className = "line-header";
+      header.innerHTML = `<div class="line-title"><span class="line-chevron">▶</span>${line.label}</div><span class="line-prog" id="lprog_${line.key}">0/${ITEMS.length}</span>`;
+      header.addEventListener("click", () => section.classList.toggle("open"));
+      section.appendChild(header);
 
-    zone.lines.forEach((line) => {
-      const tbody = document.getElementById(`tbody-${line.key}`);
+      const body = document.createElement("div");
+      body.className = "line-body";
+      section.appendChild(body);
+
+      const table = document.createElement("table");
+      table.className = "items-table";
+      table.innerHTML = `<thead><tr><th style="width:32px">#</th><th>Item</th><th style="width:130px">Status</th><th>Comment</th></tr></thead>`;
+      const tbody = document.createElement("tbody");
+      table.appendChild(tbody);
+      body.appendChild(table);
+
+      // Items
       ITEMS.forEach((item, idx) => {
-        const fbKey = `${line.key}__${item.id}`;
+        const domKey = line.key + "_" + item.id;
         const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td style="color:#bbb;font-size:11px;font-weight:600">${idx+1}</td>
-          <td class="item-desc-cell">
-            ${item.desc}
-            <div class="item-hint">${item.hint}</div>
-          </td>
-          <td>
-            <select class="status-sel" id="sel-${fbKey}">
-              <option value="pending">— Pending</option>
-              <option value="ok">✓ OK</option>
-              <option value="nok">✗ NOK</option>
-              <option value="review">↺ In review</option>
-              <option value="na">— N/A</option>
-            </select>
-          </td>
-          <td>
-            <input class="cmt-inp" id="cmt-${fbKey}" placeholder="Comment..." />
-          </td>
-        `;
+
+        const tdNum = document.createElement("td");
+        tdNum.style.cssText = "color:#bbb;font-size:11px;font-weight:600";
+        tdNum.textContent = idx + 1;
+
+        const tdDesc = document.createElement("td");
+        tdDesc.className = "item-desc-cell";
+        tdDesc.innerHTML = `${item.desc}<div class="item-hint">${item.hint}</div>`;
+
+        const sel = document.createElement("select");
+        sel.className = "status-sel";
+        sel.id = "sel_" + domKey;
+        sel.innerHTML = `<option value="pending">— Pending</option><option value="ok">✓ OK</option><option value="nok">✗ NOK</option><option value="review">↺ In review</option><option value="na">— N/A</option>`;
+        sel.addEventListener("change", () => writeItem(line.key, item.id, sel, cmt));
+        const tdSel = document.createElement("td");
+        tdSel.appendChild(sel);
+
+        const cmt = document.createElement("input");
+        cmt.className = "cmt-inp";
+        cmt.id = "cmt_" + domKey;
+        cmt.placeholder = "Comment...";
+        cmt.addEventListener("change", () => writeItem(line.key, item.id, sel, cmt));
+        const tdCmt = document.createElement("td");
+        tdCmt.appendChild(cmt);
+
+        tr.appendChild(tdNum);
+        tr.appendChild(tdDesc);
+        tr.appendChild(tdSel);
+        tr.appendChild(tdCmt);
         tbody.appendChild(tr);
-        document.getElementById(`sel-${fbKey}`).addEventListener("change", () => writeItem(line.key, item.id));
-        document.getElementById(`cmt-${fbKey}`).addEventListener("change",  () => writeItem(line.key, item.id));
       });
     });
   });
 
-  // ─── TOGGLE LINE ──────────────────────────────────────────────────
-  window.toggleLine = function(lineKey) {
-    const sec = document.getElementById(`section-${lineKey}`);
-    if (sec) sec.classList.toggle("open");
-  };
-
-  // ─── ZONE SWITCH ──────────────────────────────────────────────────
+  // ─── ZONE SWITCH ─────────────────────────────────────────────────
   function switchZone(key) {
     activeZone = key;
     document.querySelectorAll(".zone-tab").forEach(t => t.classList.toggle("active", t.dataset.key === key));
-    document.querySelectorAll(".zone-panel").forEach(p => p.classList.toggle("active", p.id === "zpanel-" + key));
+    document.querySelectorAll(".zone-panel").forEach(p => p.classList.toggle("active", p.id === "zpanel_" + key));
     updateSummary();
   }
 
-  // ─── FIREBASE WRITE ───────────────────────────────────────────────
+  // ─── WRITE TO FIREBASE ────────────────────────────────────────────
   const nameInput = document.getElementById("name-input");
-  nameInput.value = localStorage.getItem("jlr_checklist_name") || "";
-  nameInput.addEventListener("input", () => localStorage.setItem("jlr_checklist_name", nameInput.value));
+  nameInput.value = localStorage.getItem("jlr_name") || "";
+  nameInput.addEventListener("input", () => localStorage.setItem("jlr_name", nameInput.value));
 
   let saveTimer;
   function flashSaved() {
@@ -405,30 +274,51 @@
     saveTimer = setTimeout(() => el.classList.remove("show"), 2000);
   }
 
-  function writeItem(lineKey, itemId) {
-    const fbKey = `${lineKey}__${itemId}`;
-    const selEl = document.getElementById(`sel-${fbKey}`);
-    const cmtEl = document.getElementById(`cmt-${fbKey}`);
-    const user  = nameInput.value.trim() || "Anonymous";
-    set(ref(db, `${FB_NODE}/${lineKey}/${itemId}`), {
+  function writeItem(lineKey, itemId, selEl, cmtEl) {
+    const path = FB_NODE + "/" + lineKey + "/" + itemId;
+    set(ref(db, path), {
       status:  selEl.value,
       comment: cmtEl.value,
-      user,
-      ts: Date.now()
-    });
-    flashSaved();
+      user:    nameInput.value.trim() || "Anonymous",
+      ts:      Date.now()
+    }).then(() => flashSaved())
+      .catch(err => console.error("Firebase write error:", err));
   }
 
-  // ─── SUMMARY ──────────────────────────────────────────────────────
+  // ─── APPLY DATA TO DOM ────────────────────────────────────────────
+  function applyData() {
+    ZONES.forEach(zone => {
+      zone.lines.forEach(line => {
+        let done = 0;
+        ITEMS.forEach(item => {
+          const domKey = line.key + "_" + item.id;
+          const sel = document.getElementById("sel_" + domKey);
+          const cmt = document.getElementById("cmt_" + domKey);
+          if (!sel) return;
+          const d = fbData[line.key] && fbData[line.key][item.id];
+          const status  = d ? (d.status  || "pending") : "pending";
+          const comment = d ? (d.comment || "")        : "";
+          if (document.activeElement !== sel) { sel.value = status; sel.className = "status-sel " + status; }
+          if (document.activeElement !== cmt) { cmt.value = comment; }
+          if (status !== "pending") done++;
+        });
+        const prog = document.getElementById("lprog_" + line.key);
+        if (prog) prog.textContent = done + "/" + ITEMS.length;
+      });
+    });
+    updateZonePills();
+    updateSummary();
+  }
+
+  // ─── SUMMARY ─────────────────────────────────────────────────────
   function updateSummary() {
     const zone = ZONES.find(z => z.key === activeZone);
     let ok=0, nok=0, review=0, na=0, pending=0, done=0, total=0;
-
     zone.lines.forEach(line => {
       ITEMS.forEach(item => {
         total++;
         const d = fbData[line.key] && fbData[line.key][item.id];
-        const s = d ? d.status : "pending";
+        const s = d ? (d.status || "pending") : "pending";
         if      (s === "ok")     { ok++;     done++; }
         else if (s === "nok")    { nok++;    done++; }
         else if (s === "review") { review++; done++; }
@@ -436,7 +326,6 @@
         else                       pending++;
       });
     });
-
     document.getElementById("progress-bar").style.width = total ? Math.round((done/total)*100)+"%" : "0%";
     document.getElementById("cnt-ok").textContent      = ok      + " OK";
     document.getElementById("cnt-nok").textContent     = nok     + " NOK";
@@ -444,26 +333,15 @@
     document.getElementById("cnt-na").textContent      = na      + " N/A";
     document.getElementById("cnt-pending").textContent = pending + " Pending";
 
-    // Global sub
     let gDone=0, gTotal=0;
     ZONES.forEach(z => z.lines.forEach(l => {
       ITEMS.forEach(item => {
         gTotal++;
         const d = fbData[l.key] && fbData[l.key][item.id];
-        if (d && d.status !== "pending") gDone++;
+        if (d && d.status && d.status !== "pending") gDone++;
       });
     }));
-    document.getElementById("global-sub").textContent = `${gDone} of ${gTotal} items completed in total`;
-  }
-
-  function updateLineProg(lineKey) {
-    let done=0;
-    ITEMS.forEach(item => {
-      const d = fbData[lineKey] && fbData[lineKey][item.id];
-      if (d && d.status !== "pending") done++;
-    });
-    const el = document.getElementById(`lprog-${lineKey}`);
-    if (el) el.textContent = `${done}/${ITEMS.length}`;
+    document.getElementById("global-sub").textContent = gDone + " of " + gTotal + " items completed in total";
   }
 
   function updateZonePills() {
@@ -473,49 +351,22 @@
         ITEMS.forEach(item => {
           total++;
           const d = fbData[line.key] && fbData[line.key][item.id];
-          if (d && d.status !== "pending") done++;
+          if (d && d.status && d.status !== "pending") done++;
         });
       });
-      const pill = document.getElementById(`zpill-${zone.key}`);
-      if (pill) pill.textContent = `${done}/${total}`;
+      const pill = document.getElementById("zpill_" + zone.key);
+      if (pill) pill.textContent = done + "/" + total;
     });
-  }
-
-  // ─── APPLY DATA TO DOM ────────────────────────────────────────────
-  function applyDataToDOM() {
-    ZONES.forEach(zone => {
-      zone.lines.forEach(line => {
-        ITEMS.forEach(item => {
-          const fbKey = `${line.key}__${item.id}`;
-          const selEl = document.getElementById(`sel-${fbKey}`);
-          const cmtEl = document.getElementById(`cmt-${fbKey}`);
-          if (!selEl) return;
-          const d = fbData[line.key] && fbData[line.key][item.id];
-          const status  = d ? (d.status  || "pending") : "pending";
-          const comment = d ? (d.comment || "")        : "";
-          if (document.activeElement !== selEl) {
-            selEl.value = status;
-            selEl.className = "status-sel " + status;
-          }
-          if (document.activeElement !== cmtEl) {
-            cmtEl.value = comment;
-          }
-        });
-        updateLineProg(line.key);
-      });
-    });
-    updateZonePills();
-    updateSummary();
   }
 
   // ─── REALTIME LISTENER ────────────────────────────────────────────
   onValue(ref(db, FB_NODE), (snapshot) => {
     document.getElementById("online-text").textContent = "Synced in real time";
     fbData = snapshot.val() || {};
-    // Apply immediately if DOM is ready, otherwise wait for setTimeout(0) build
-    applyDataToDOM();
+    applyData();
   }, (err) => {
     document.getElementById("online-text").textContent = "Connection error — " + err.message;
+    console.error("Firebase listener error:", err);
   });
 </script>
 </body>
