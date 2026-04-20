@@ -374,6 +374,8 @@
           document.getElementById(`sel-${fbKey}`).addEventListener("change", () => writeItem(line.key, item.id));
           document.getElementById(`cmt-${fbKey}`).addEventListener("change",  () => writeItem(line.key, item.id));
         });
+        // Paint any Firebase data already loaded
+        applyDataToDOM();
       }, 0);
     });
 
@@ -483,11 +485,8 @@
     });
   }
 
-  // ─── REALTIME LISTENER ────────────────────────────────────────────
-  onValue(ref(db, FB_NODE), (snapshot) => {
-    document.getElementById("online-text").textContent = "Synced in real time";
-    fbData = snapshot.val() || {};
-
+  // ─── APPLY DATA TO DOM ────────────────────────────────────────────
+  function applyDataToDOM() {
     ZONES.forEach(zone => {
       zone.lines.forEach(line => {
         ITEMS.forEach(item => {
@@ -496,22 +495,29 @@
           const cmtEl = document.getElementById(`cmt-${fbKey}`);
           if (!selEl) return;
           const d = fbData[line.key] && fbData[line.key][item.id];
-          if (d) {
-            if (document.activeElement !== selEl) {
-              selEl.value = d.status || "pending";
-              selEl.className = "status-sel " + (d.status || "pending");
-            }
-            if (document.activeElement !== cmtEl) {
-              cmtEl.value = d.comment || "";
-            }
+          const status  = d ? (d.status  || "pending") : "pending";
+          const comment = d ? (d.comment || "")        : "";
+          if (document.activeElement !== selEl) {
+            selEl.value = status;
+            selEl.className = "status-sel " + status;
+          }
+          if (document.activeElement !== cmtEl) {
+            cmtEl.value = comment;
           }
         });
         updateLineProg(line.key);
       });
     });
-
     updateZonePills();
     updateSummary();
+  }
+
+  // ─── REALTIME LISTENER ────────────────────────────────────────────
+  onValue(ref(db, FB_NODE), (snapshot) => {
+    document.getElementById("online-text").textContent = "Synced in real time";
+    fbData = snapshot.val() || {};
+    // Apply immediately if DOM is ready, otherwise wait for setTimeout(0) build
+    applyDataToDOM();
   }, (err) => {
     document.getElementById("online-text").textContent = "Connection error — " + err.message;
   });
