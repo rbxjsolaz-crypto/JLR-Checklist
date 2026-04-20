@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -169,17 +169,17 @@
       <span class="tag tag-proj">Zone Commissioning Checklist</span>
     </div>
     <div class="header-title">Zone Commissioning Checklist</div>
-    <div class="header-sub" id="global-sub">Cargando...</div>
+    <div class="header-sub" id="global-sub">Loading...</div>
   </div>
 
   <div id="name-bar">
-    <label for="name-input">Tu nombre:</label>
-    <input type="text" id="name-input" placeholder="Escribe tu nombre..." maxlength="40" />
+    <label for="name-input">Your name:</label>
+    <input type="text" id="name-input" placeholder="Enter your name..." maxlength="40" />
   </div>
 
   <div class="online-bar">
     <span class="online-dot"></span>
-    <span id="online-text">Conectando...</span>
+    <span id="online-text">Connecting...</span>
   </div>
 
   <div class="zone-tabs" id="zone-tabs"></div>
@@ -191,16 +191,16 @@
   <div class="summary-bar">
     <div class="sum-item"><span class="dot dot-ok"></span><span id="cnt-ok">0 OK</span></div>
     <div class="sum-item"><span class="dot dot-nok"></span><span id="cnt-nok">0 NOK</span></div>
-    <div class="sum-item"><span class="dot dot-review"></span><span id="cnt-review">0 En revisión</span></div>
+    <div class="sum-item"><span class="dot dot-review"></span><span id="cnt-review">0 In review</span></div>
     <div class="sum-item"><span class="dot dot-na"></span><span id="cnt-na">0 N/A</span></div>
-    <div class="sum-item"><span class="dot dot-pending"></span><span id="cnt-pending">– Pendiente</span></div>
+    <div class="sum-item"><span class="dot dot-pending"></span><span id="cnt-pending">– Pending</span></div>
   </div>
 
   <div id="zone-panels"></div>
 
   <div class="footer">
     <div class="footer-ref">JLR – Zone Commissioning Checklist</div>
-    <span class="saved-indicator" id="saved-indicator">✓ Guardado</span>
+    <span class="saved-indicator" id="saved-indicator">✓ Saved</span>
   </div>
 
 </div>
@@ -333,8 +333,8 @@
               <tr>
                 <th style="width:32px">#</th>
                 <th>Item</th>
-                <th style="width:130px">Estado</th>
-                <th>Comentario</th>
+                <th style="width:130px">Status</th>
+                <th>Comment</th>
               </tr>
             </thead>
             <tbody id="tbody-${line.key}"></tbody>
@@ -358,15 +358,15 @@
             </td>
             <td>
               <select class="status-sel" id="sel-${fbKey}">
-                <option value="pending">— Pendiente</option>
+                <option value="pending">— Pending</option>
                 <option value="ok">✓ OK</option>
                 <option value="nok">✗ NOK</option>
-                <option value="review">↺ En revisión</option>
+                <option value="review">↺ In review</option>
                 <option value="na">— N/A</option>
               </select>
             </td>
             <td>
-              <input class="cmt-inp" id="cmt-${fbKey}" placeholder="Comentario..." />
+              <input class="cmt-inp" id="cmt-${fbKey}" placeholder="Comment..." />
             </td>
           `;
           tbody.appendChild(tr);
@@ -411,7 +411,7 @@
     const fbKey = `${lineKey}__${itemId}`;
     const selEl = document.getElementById(`sel-${fbKey}`);
     const cmtEl = document.getElementById(`cmt-${fbKey}`);
-    const user  = nameInput.value.trim() || "Anónimo";
+    const user  = nameInput.value.trim() || "Anonymous";
     set(ref(db, `${FB_NODE}/${lineKey}/${itemId}`), {
       status:  selEl.value,
       comment: cmtEl.value,
@@ -442,9 +442,9 @@
     document.getElementById("progress-bar").style.width = total ? Math.round((done/total)*100)+"%" : "0%";
     document.getElementById("cnt-ok").textContent      = ok      + " OK";
     document.getElementById("cnt-nok").textContent     = nok     + " NOK";
-    document.getElementById("cnt-review").textContent  = review  + " En revisión";
+    document.getElementById("cnt-review").textContent  = review  + " In review";
     document.getElementById("cnt-na").textContent      = na      + " N/A";
-    document.getElementById("cnt-pending").textContent = pending + " Pendiente";
+    document.getElementById("cnt-pending").textContent = pending + " Pending";
 
     // Global sub
     let gDone=0, gTotal=0;
@@ -455,7 +455,7 @@
         if (d && d.status !== "pending") gDone++;
       });
     }));
-    document.getElementById("global-sub").textContent = `${gDone} de ${gTotal} puntos completados en total`;
+    document.getElementById("global-sub").textContent = `${gDone} of ${gTotal} items completed in total`;
   }
 
   function updateLineProg(lineKey) {
@@ -485,7 +485,7 @@
 
   // ─── REALTIME LISTENER ────────────────────────────────────────────
   onValue(ref(db, FB_NODE), (snapshot) => {
-    document.getElementById("online-text").textContent = "Sincronizado en tiempo real";
+    document.getElementById("online-text").textContent = "Synced in real time";
     fbData = snapshot.val() || {};
 
     ZONES.forEach(zone => {
@@ -513,7 +513,7 @@
     updateZonePills();
     updateSummary();
   }, (err) => {
-    document.getElementById("online-text").textContent = "Error de conexión — " + err.message;
+    document.getElementById("online-text").textContent = "Connection error — " + err.message;
   });
 </script>
 </body>
